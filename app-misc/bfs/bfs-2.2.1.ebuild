@@ -6,6 +6,7 @@ EAPI=7
 DESCRIPTION="A breadth-first version of the UNIX find command"
 HOMEPAGE="https://github.com/tavianator/bfs"
 SRC_URI="https://github.com/tavianator/bfs/archive/refs/tags/${PV}.tar.gz"
+RESTRICT="nomirror"
 
 LICENSE="BSD-2"
 SLOT="0"

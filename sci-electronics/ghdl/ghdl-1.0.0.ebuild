@@ -9,6 +9,7 @@ inherit ada multilib
 DESCRIPTION="VHDL 2008/93/87 simulator"
 HOMEPAGE="https://github.com/ghdl/ghdl"
 SRC_URI="https://github.com/ghdl/ghdl/archive/refs/tags/v${PV}.tar.gz"
+RESTRICT="nomirror"
 
 LICENSE="GPL-2"
 SLOT="0"
