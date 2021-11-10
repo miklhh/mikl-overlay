@@ -9,12 +9,12 @@ MY_P="rust-${PV}"
 
 DESCRIPTION="Systems programming language from Mozilla"
 HOMEPAGE="https://www.rust-lang.org/"
-SRC_URI="$(rust_all_arch_uris ${MY_P})"
+SRC_URI="$(rust_all_arch_uris ${MY_P}) rust-src? ( https://static.rust-lang.org/dist/2021-11-01/rust-src-${PV}.tar.xz )"
 
 LICENSE="|| ( MIT Apache-2.0 ) BSD-1 BSD-2 BSD-4 UoI-NCSA"
 SLOT="stable"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~x86"
-IUSE="clippy cpu_flags_x86_sse2 doc prefix rls rustfmt"
+IUSE="clippy cpu_flags_x86_sse2 doc prefix rls rust-src rustfmt"
 
 DEPEND=""
 RDEPEND=">=app-eselect/eselect-rust-20190311"
@@ -81,6 +81,17 @@ multilib_src_install() {
 		--mandir="${ED}/opt/${P}/man" \
 		--disable-ldconfig \
 		|| die
+
+	# Rust component 'rust-src' is extracted from separate archive
+	if use rust-src; then
+		${WORKDIR}/rust-src-${PV}/install.sh \
+			--components="rust-src" \
+			--disable-verify \
+			--prefix="${ED}/opt/${P}" \
+			--mandir="${ED}/opt/${P}/man" \
+			--disable-ldconfig \
+			|| die
+	fi
 
 	if use prefix; then
 		local interpreter=$(patchelf --print-interpreter ${EPREFIX}/bin/bash)
